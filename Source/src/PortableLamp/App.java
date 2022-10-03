@@ -85,9 +85,10 @@ public class App {
         var chars = this.text.toCharArray();
 
         String output = "";
+        // for this feature, we are going to assume that every character that is not a letter fits the criteria
         for (int i = this.n-1; i < chars.length; i+=this.n) {
             // if the Nth char is uppercase, append to the output
-            if (Character.isUpperCase(chars[i]))
+            if (Character.isUpperCase(chars[i]) || !Character.isLetter(chars[i]))
             {
                 output += chars[i];
             }

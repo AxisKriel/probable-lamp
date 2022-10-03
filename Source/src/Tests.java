@@ -7,6 +7,9 @@ import PortableLamp.App;
 
 public class Tests {
 
+    /**
+     * Test the getArgs() method using various strings.
+     */
     @Test
     public void testGetArgs() {
         var app = new App();
@@ -83,5 +86,20 @@ public class Tests {
 
         app.getArgs(new String[] { test5[0], test5[1] });
         assertEquals(app.parse(), test5[2]);
+    }
+
+    /**
+     * Test the optional task #1 addon - now should also return numbers and special characters.
+     */
+    @Test(dependsOnMethods = "testParse")
+    public void testOptionalOne()
+    {
+        var app = new App();
+
+        String text = "!tCL1Nical";
+        String n = "1";
+        String expected = "!CL1N";
+        app.getArgs(new String[] { n, text });
+        assertEquals(app.parse(), expected);
     }
 }
