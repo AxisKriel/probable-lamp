@@ -12,9 +12,9 @@ public class Tests {
         var app = new App();
 
         // a couple test inputs to ensure the app works as intended
-        String input1 = "3 ITClinical";                 // n = 3 
+        String input1 = "3\nITClinical";                 // n = 3 
         String input2 = "ITClinical";                   // n = 1 (default)
-        String input3 = "2 This is a Longer Phrase";    // n = 2
+        String input3 = "2\nThis is a Longer Phrase";    // n = 2
         String input4 = "Multiple Words Without N";     // n = 1
 
         // first test - n should be 3 and text should be ITClinical
@@ -25,8 +25,7 @@ public class Tests {
         app.reset();
 
         // second test - if there is only one parameter, n = 1
-        System.setIn(new ByteArrayInputStream(input2.getBytes()));
-        app.getArgs(new String[] {});
+        app.getArgs(new String[] { input2 });
         assertEquals(app.n, 1);
         assertEquals(app.text, "ITClinical");
         app.reset();
@@ -39,8 +38,7 @@ public class Tests {
         app.reset();
 
         // fourth test - testing if multiple words still work without an explicit N
-        System.setIn(new ByteArrayInputStream(input4.getBytes()));
-        app.getArgs(new String[] {});
+        app.getArgs(new String[] { input4 });
         assertEquals(app.n, 1);
         assertEquals(app.text, "Multiple Words Without N");
         app.reset();
@@ -74,5 +72,16 @@ public class Tests {
         app.getArgs(new String[] { test2[0], test2[1] });
         assertEquals(app.parse(), test2[2]);
         app.reset();
+
+        app.getArgs(new String[] { test3[0], test3[1] });
+        assertEquals(app.parse(), test3[2]);
+        app.reset();
+
+        app.getArgs(new String[] { test4[0], test4[1] });
+        assertEquals(app.parse(), test4[2]);
+        app.reset();
+
+        app.getArgs(new String[] { test5[0], test5[1] });
+        assertEquals(app.parse(), test5[2]);
     }
 }

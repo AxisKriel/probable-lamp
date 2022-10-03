@@ -1,6 +1,5 @@
 package PortableLamp;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -10,7 +9,12 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         var app = new App();
+
+        // load the params
         app.getArgs(args);
+
+        // print the output
+        System.out.println(app.parse());
     }
 
     /**
@@ -28,14 +32,13 @@ public class App {
     public void getArgs(String[] args) {
         // if no args are passed beforehand, we get them from user input
         if (args.length == 0) {
-            var input = "";
             try (var scanner = new Scanner(System.in)) {
-                while (scanner.hasNext()) {
-                    // load the full input
-                    input += scanner.nextLine();
-                }
+                System.out.println("Enter N (press Enter for 1): ");
+                String inputN = scanner.nextLine();
+                System.out.println("Enter text: ");
+                String inputText = scanner.nextLine();
+                args = new String[] { inputN, inputText };
             }
-            args = input.split(" ");
         }
 
         String syntaxError = "Invalid syntax. Correct syntax: [n:number] <text...>";
