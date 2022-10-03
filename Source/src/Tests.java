@@ -22,5 +22,12 @@ public class Tests {
         app.getArgs(new String[] {});
         assertEquals(app.n, 3);
         assertEquals(app.text, "ITClinical");
+        app.reset();
+
+        // second test - if there is only one parameter, n = 1
+        System.setIn(new ByteArrayInputStream(input2.getBytes()));
+        app.getArgs(new String[] {});
+        assertEquals(app.n, 1);
+        assertEquals(app.text, "ITClinical");
     }
 }

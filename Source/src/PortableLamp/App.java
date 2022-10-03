@@ -12,6 +12,14 @@ public class App {
     }
 
     /**
+     * Reset this app's parameters.
+     */
+    public void reset() {
+        this.n = 1;
+        this.text = "";
+    }
+
+    /**
      * Populates the parameters of the app (n and text) based on the input.
      * @param args Used if not empty, otherwise, the input stream is used.
      */
@@ -29,23 +37,27 @@ public class App {
         }
 
         String syntaxError = "Invalid syntax. Correct syntax: [n:number] <text...>";
-        if (args.length < 2) {
+        if (args.length < 1) {
             System.out.println(syntaxError);
             return;
         }
+
+        // this is used to start reading words earlier in case there is no explicit N
+        int startIndex = 1;
 
         // get N from the first parameter
         try {
             this.n = Integer.parseInt(args[0]);
         }
         catch (NumberFormatException exception) {
-            System.out.println(syntaxError);
-            return;
+            // assume N is the default and continue
+            this.n = 1;
+            startIndex = 0;
         }
 
         // get text from the remainder
         String textArgs = "";
-        for (int i = 1; i < args.length; i++) {
+        for (int i = startIndex; i < args.length; i++) {
             textArgs += args[i];
             if (i < args.length-1) {
                 textArgs += " ";
