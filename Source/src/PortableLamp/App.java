@@ -1,5 +1,6 @@
 package PortableLamp;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
@@ -8,7 +9,8 @@ public class App {
     public String text;
 
     public static void main(String[] args) throws Exception {
-        
+        var app = new App();
+        app.getArgs(args);
     }
 
     /**
@@ -64,5 +66,32 @@ public class App {
             }
         }
         this.text = textArgs;
+    }
+
+    /**
+     * Parse this app's loaded parameters.
+     * @return The resulting string based on the loaded text and N variables.
+     */
+    public String parse() {
+        // preliminary checks that are easy return cases
+        if (this.text == "" || this.n < 1) {
+            return "";
+        }
+
+        // iterate over the string and store every uppercase char
+        var chars = new ArrayList<Character>();
+        for (Character ch : this.text.toCharArray()) {
+            if (Character.isUpperCase(ch)) {
+                chars.add(ch);
+            }
+        }
+
+        String output = "";
+        int length = chars.size();
+        for (int i = this.n-1; i < length; i+=this.n) {
+            output += chars.get(i);
+        }
+        
+        return output;
     }
 }

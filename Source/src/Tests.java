@@ -50,4 +50,25 @@ public class Tests {
         assertEquals(app.n, 2);
         assertEquals(app.text, "Multiple Words with N");
     }
+
+    /**
+     * Test the parse method. Given a text, it should return every Nth char that is uppercase. 
+     */
+    @Test(dependsOnMethods = {"testGetArgs"})
+    public void testParse() {
+        var app = new App();
+
+        // test params in this order: N, text, output
+        String[] test1 = { "1", "ITCLiNicAl", "ITCLNA" };
+        String[] test2 = { "2", "ITCLiNicAl", "TLN" };
+        String[] test3 = { "3", "ITCLiNicAl", "CNA" };
+        // special case one - if N > number of uppercase letters, return ""
+        String[] test4 = { "100", "ITCLiNicAl", "" };
+        // special case two - if N < 1, return ""
+        String[] test5 = { "-1", "ITCLiNicAl", "" };
+
+        app.getArgs(new String[] { test1[0], test1[1] });
+        assertEquals(app.parse(), test1[2]);
+        app.reset();
+    }
 }
