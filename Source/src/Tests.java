@@ -70,5 +70,9 @@ public class Tests {
         app.getArgs(new String[] { test1[0], test1[1] });
         assertEquals(app.parse(), test1[2]);
         app.reset();
+
+        app.getArgs(new String[] { test2[0], test2[1] });
+        assertEquals(app.parse(), test2[2]);
+        app.reset();
     }
 }

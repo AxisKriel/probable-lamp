@@ -79,17 +79,15 @@ public class App {
         }
 
         // iterate over the string and store every uppercase char
-        var chars = new ArrayList<Character>();
-        for (Character ch : this.text.toCharArray()) {
-            if (Character.isUpperCase(ch)) {
-                chars.add(ch);
-            }
-        }
+        var chars = this.text.toCharArray();
 
         String output = "";
-        int length = chars.size();
-        for (int i = this.n-1; i < length; i+=this.n) {
-            output += chars.get(i);
+        for (int i = this.n-1; i < chars.length; i+=this.n) {
+            // if the Nth char is uppercase, append to the output
+            if (Character.isUpperCase(chars[i]))
+            {
+                output += chars[i];
+            }
         }
         
         return output;
