@@ -1,11 +1,13 @@
 package PortableLamp;
 
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class App {
 
     public int n;
     public String text;
+    public Hashtable<Character, Integer> counter = new Hashtable<>();
 
     public static void main(String[] args) throws Exception {
         var app = new App();
@@ -15,6 +17,10 @@ public class App {
 
         // print the output
         System.out.println(app.parse());
+        // print the counter
+        for (var key : app.counter.keySet()) {
+            System.out.println(String.format("%s: %d", key, app.counter.get(key)));
+        }
     }
 
     /**
@@ -23,6 +29,7 @@ public class App {
     public void reset() {
         this.n = 1;
         this.text = "";
+        this.counter.clear();
     }
 
     /**
@@ -86,11 +93,22 @@ public class App {
 
         String output = "";
         // for this feature, we are going to assume that every character that is not a letter fits the criteria
+        // (except for the whitespace)
         for (int i = this.n-1; i < chars.length; i+=this.n) {
             // if the Nth char is uppercase, append to the output
-            if (Character.isUpperCase(chars[i]) || !Character.isLetter(chars[i]))
+            if (Character.isUpperCase(chars[i]) || (!Character.isWhitespace(chars[i]) && !Character.isLetter(chars[i])))
             {
                 output += chars[i];
+
+                // Implementation of Optional Feature #2
+                //if the key doesn't exist, add it with a value of 1, else, sum 1 to the existing counter
+                var count = this.counter.get(chars[i]);
+                if (count == null) {
+                    this.counter.put(chars[i], 1);
+                }
+                else {
+                    this.counter.put(chars[i], count+1);
+                }
             }
         }
         

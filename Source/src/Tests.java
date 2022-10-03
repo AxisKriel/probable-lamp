@@ -1,4 +1,6 @@
 import java.io.ByteArrayInputStream;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
@@ -91,7 +93,7 @@ public class Tests {
     /**
      * Test the optional task #1 addon - now should also return numbers and special characters.
      */
-    @Test(dependsOnMethods = "testParse")
+    @Test(dependsOnMethods = { "testParse" })
     public void testOptionalOne()
     {
         var app = new App();
@@ -101,5 +103,27 @@ public class Tests {
         String expected = "!CL1N";
         app.getArgs(new String[] { n, text });
         assertEquals(app.parse(), expected);
+    }
+
+    @Test(dependsOnMethods = { "testParse" })
+    public void testOptionalTwo()
+    {
+        var app = new App();
+
+        String text = "ItCLINiCAL";
+        String n = "1";
+        String expected = "ICLINCAL";
+
+        app.getArgs(new String[] { n, text });
+
+        // check if the output matches
+        assertEquals(app.parse(), expected);
+
+        // check if the letter counts match
+        assertEquals(app.counter.get('I'), 2);
+        assertEquals(app.counter.get('C'), 2);
+        assertEquals(app.counter.get('L'), 2);
+        assertEquals(app.counter.get('N'), 1);
+        assertEquals(app.counter.get('A'), 1);
     }
 }
